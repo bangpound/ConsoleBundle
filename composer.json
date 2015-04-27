@@ -22,8 +22,7 @@
         "symfony/console": ">=2.1.0,<3.0"
     },
     "autoload": {
-        "psr-0": { "CoreSphere\\ConsoleBundle": "" }
+        "psr-4": { "CoreSphere\\ConsoleBundle\\": "" }
     },
-    "target-dir": "CoreSphere/ConsoleBundle",
     "minimum-stability": "dev"
 }

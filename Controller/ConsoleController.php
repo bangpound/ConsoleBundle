@@ -13,6 +13,8 @@ namespace CoreSphere\ConsoleBundle\Controller;
 
 use CoreSphere\ConsoleBundle\Contract\Executer\CommandExecuterInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use CoreSphere\ConsoleBundle\Executer\CommandExecuter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Templating\EngineInterface;
@@ -76,11 +78,8 @@ class ConsoleController
             }
         }
 
-        return new Response(
-            $this->templating->render(
-                'CoreSphereConsoleBundle:Console:result.json.twig',
-                ['commands' => $executedCommandsOutput]
-            )
+        return new JsonResponse(
+            array('results' => $executedCommandsOutput)
         );
     }
 }

@@ -133,7 +133,7 @@ window.CoreSphereConsole = (function (window) {
     ConsoleBackend.prototype.focusSuggestionAt = function(idx) {
         var that = this;
 
-        if(!isInteger(idx)) {
+        if(!helpers.isInteger(idx)) {
             throw "Index to be focused must be an integer.";
         }
         if(idx<0 || idx+1 > that.currentSuggestions.length) {

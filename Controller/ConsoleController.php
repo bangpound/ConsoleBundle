@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 use CoreSphere\ConsoleBundle\Executer\CommandExecuter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ConsoleController extends Controller
@@ -52,9 +53,8 @@ class ConsoleController extends Controller
             }
         }
 
-        return $this->render(
-            'CoreSphereConsoleBundle:Console:result.' . $request->getRequestFormat() . '.twig',
-            array('commands' => $executedCommands)
+        return new JsonResponse(
+            array('results' => $executedCommands)
         );
     }
 }

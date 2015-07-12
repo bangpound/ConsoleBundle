@@ -1,13 +1,12 @@
 console:
-    pattern:  /
+    path:  /
     defaults: { _controller: CoreSphereConsoleBundle:Console:console }
-    requirements:
-        _method: GET
+    methods: [GET]
 
 
 console_exec:
-    pattern:  /commands.{_format}
+    path:  /commands.{_format}
     defaults: { _controller: CoreSphereConsoleBundle:Console:exec, _format: json }
+    methods: [POST]
     requirements:
-        _method: POST
         _format: json

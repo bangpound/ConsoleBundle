@@ -59,7 +59,20 @@ Installation
 	```
 
 
-4. run the assets:install command to install the css and js files
+4. add a jquery asset to your configuration
+
+    ```yaml
+    #app/config/config.yml
+    framework:
+        assets:
+            packages:
+                jquery:
+                    version: 1.8
+                    version_format: '%%2$s/%%1$s'
+                    base_urls: ['//ajax.googleapis.com/ajax/libs/jquery']
+    ```
+
+5. run the assets:install command to install the css and js files
 
 	```sh
 	./app/console assets:install web

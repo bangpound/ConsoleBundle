@@ -12,6 +12,6 @@ class CoreSphereConsoleExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('toolbar_listener.yml');
+        $loader->load('services.yml');
     }
 }

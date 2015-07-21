@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
-use CoreSphere\ConsoleBundle\Output\StringOutput;
+use Symfony\Component\Console\Output\BufferedOutput;
 use CoreSphere\ConsoleBundle\Formatter\HtmlOutputFormatterDecorator;
 
 /**
@@ -36,7 +36,7 @@ class CommandExecuter
     public function execute($commandString)
     {
         $input = new StringInput($commandString);
-        $output = new StringOutput();
+        $output = new BufferedOutput();
 
         $application = $this->getApplication($input);
         $formatter = $output->getFormatter();
@@ -51,12 +51,15 @@ class CommandExecuter
 
         ob_start();
         $errorCode = $application->run($input, $output);
-        $result = $output->getBuffer() || ob_get_contents();
+        $result = $output->fetch();
+        if (empty($result)) {
+            $result = ob_get_contents();
+        }
         ob_end_clean();
 
         return array(
             'input'       => $commandString,
-            'output'      => $output->getBuffer(),
+            'output'      => $result,
             'environment' => $kernel->getEnvironment(),
             'error_code'  => $errorCode
         );

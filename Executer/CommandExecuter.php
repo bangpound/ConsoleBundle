@@ -12,7 +12,7 @@
 namespace CoreSphere\ConsoleBundle\Executer;
 
 use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
@@ -28,7 +28,7 @@ class CommandExecuter
 {
     protected $baseKernel;
 
-    public function __construct(Kernel $baseKernel)
+    public function __construct(KernelInterface $baseKernel)
     {
         $this->baseKernel = $baseKernel;
     }

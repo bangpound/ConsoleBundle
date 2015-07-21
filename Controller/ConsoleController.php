@@ -30,10 +30,13 @@ class ConsoleController extends ContainerAware
             $bundle->registerCommands($application);
         }
 
+        $commands = $application->all();
+        ksort($commands);
+
         return $this->container->get('templating')->renderResponse('CoreSphereConsoleBundle:Console:console.html.twig', array(
             'working_dir' => getcwd(),
             'environment' => $kernel->getEnvironment(),
-            'commands' => $application->all(),
+            'commands' => $commands,
         ));
     }
 

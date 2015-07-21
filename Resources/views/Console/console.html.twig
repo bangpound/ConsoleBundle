@@ -16,20 +16,20 @@
     {{ parent() }}
     <script src="{{ asset('bundles/coresphereconsole/js/console.js') }}"></script>
     <script>
-        jQuery(function () {
-            {% autoescape 'js' %}
+        jQuery(function ($) {
             var coresphere_console = new CoreSphereConsole(
-                jQuery("#coresphere_consolebundle_console"), {
-                "commands" : {{ commands|keys|json_encode|raw }}.sort(),
-                "post_path" : "{{ path('console_exec') }}",
-                "environment" : "{{ environment }}",
-                "lang" : {
-                    "loading" : "{{ 'coresphere_console.loading'|trans }}",
-                    "suggestion_head" : "{{ 'coresphere_console.suggestion_head'|trans }}",
-                    "environment" : "{{ 'coresphere_console.environment'|trans }}",
-                    "empty_response" : "{{ 'coresphere_console.empty_response'|trans }}",
-                    "welcome_message" : "{{ 'coresphere_console.welcome_message'|trans({'%command%': '<code class=\"console_command\">list</code>'}) }}"
-                },
+                $("#coresphere_consolebundle_console"), $.extend({{ {
+                commands: commands,
+                post_path: path('console_exec'),
+                environment: environment,
+                lang: {
+                    loading: 'coresphere_console.loading'|trans,
+                    suggestion_head: 'coresphere_console.suggestion_head'|trans,
+                    environment: 'coresphere_console.environment'|trans,
+                    empty_response: 'coresphere_console.empty_response'|trans,
+                    welcome_message: 'coresphere_console.welcome_message'|trans({'%command%': '<code class=\"console_command\">list</code>'})
+                }
+                } | json_encode | raw }}, {
                 "templates" : {
                     "error" : $("#template_console_error").text(),
                     "command" : $("#template_console_command").text(),
@@ -40,8 +40,7 @@
                     "suggestion_item" : $('#suggestion_item').text(),
                     "highlight" : $('#template_console_highlight').text().trim()
                 }
-            });
-            {% endautoescape %}
+            }));
         });
     </script>
 {% endblock %}

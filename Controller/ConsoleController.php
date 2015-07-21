@@ -11,17 +11,17 @@
 
 namespace CoreSphere\ConsoleBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 use CoreSphere\ConsoleBundle\Executer\CommandExecuter;
 use Symfony\Component\HttpFoundation\Request;
 
-class ConsoleController extends Controller
+class ConsoleController extends ContainerAware
 {
     public function consoleAction()
     {
-        $kernel = $this->get('kernel');
+        $kernel = $this->container->get('kernel');
         $application = new Application($kernel);
 
         chdir($kernel->getRootDir().'/..');
@@ -30,7 +30,7 @@ class ConsoleController extends Controller
             $bundle->registerCommands($application);
         }
 
-        return $this->render('CoreSphereConsoleBundle:Console:console.html.twig', array(
+        return $this->container->get('templating')->renderResponse('CoreSphereConsoleBundle:Console:console.html.twig', array(
             'working_dir' => getcwd(),
             'environment' => $kernel->getEnvironment(),
             'commands' => $application->all(),
@@ -39,7 +39,7 @@ class ConsoleController extends Controller
 
     public function execAction(Request $request)
     {
-        $executer = new CommandExecuter($this->get('kernel'));
+        $executer = new CommandExecuter($this->container->get('kernel'));
         $commands = $request->request->get('commands');
         $executedCommands = array();
 

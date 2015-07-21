@@ -11,13 +11,7 @@
     <body>
         {% block body '' %}
         {% block javascripts %}
-            {# Load jQuery from Google CDN with a local fallback when not laded yet #}
-            <script>
-            window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"><\/script>')
-            </script>
-            <script>
-            window.jQuery || document.write("<script src=\"{{ asset('bundles/coresphereconsole/js/jquery-1.8.3.min.js') }}\"><\/script>");
-            </script>
+            <script src="{{ asset('jquery.min.js', 'jquery') }}"></script>
         {% endblock %}
     </body>
 </html>
